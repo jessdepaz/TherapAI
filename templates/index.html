@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TherapAI Summarizer</title>
+</head>
+<body>
+    <h1>Therapy Transcript Summarizer</h1>
+    <form action="/summarize_text" method="post">
+        <textarea name="text" rows="10" cols="50"></textarea><br>
+        <button type="submit">Summarize</button>
+    </form>
+    {% if summary %}
+        <h2>Summary:</h2>
+        <p>{{ summary }}</p>
+    {% endif %}
+</body>
+</html>
