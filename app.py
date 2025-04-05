@@ -3,8 +3,8 @@ from transformers import pipeline
 
 app = Flask(__name__)
 
-# Load model
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+# Load a summarization model that's better with conversations
+summarizer = pipeline("summarization", model="philschmid/bart-large-cnn-samsum")
 
 @app.route("/", methods=["GET"])
 def home():
@@ -14,14 +14,18 @@ def home():
 def summarize_text():
     transcript = request.form["text"]
 
+    # Generate summary
     summary = summarizer(
-    transcript, 
-    max_length=250,      # You can tweak this value for a shorter or longer summary
-    min_length=25,       # This ensures the summary is not too short
-    do_sample=False,     # Ensures deterministic output (no randomness)
-    length_penalty=2.0   # Higher value encourages a more concise summary
-)
-    return render_template("index.html", summary=summary[0]['summary_text'])
+        transcript,
+        max_length=150,  # Keeps it concise but still meaningful
+        min_length=30,   # Avoids too-short outputs
+        do_sample=False  # Keeps it deterministic
+    )
+
+    summary_text = summary[0]['summary_text']
+    final_output = f"<strong>Summary of your therapy session:</strong>  {summary_text}"
+
+    return render_template("index.html", summary=final_output)
 
 if __name__ == "__main__":
     app.run(debug=True)

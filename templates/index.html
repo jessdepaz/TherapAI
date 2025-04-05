@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>TherapAI Summarizer</title>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
     <h1>Therapy Transcript Summarizer</h1>
     <form action="/summarize_text" method="post">
-        <textarea name="text" rows="10" cols="50"></textarea><br>
-        <button type="submit">Summarize</button>
+      <textarea name="text" rows="10" cols="50"></textarea><br />
+      <button type="submit">Summarize</button>
     </form>
     {% if summary %}
-        <h2>Summary:</h2>
-        <p>{{ summary }}</p>
+    <h2>Summary:</h2>
+    <p>{{ summary|safe }}</p>
     {% endif %}
-</body>
+  </body>
 </html>
