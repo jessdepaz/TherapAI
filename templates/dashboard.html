@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TherapAI Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Therapy Session Dashboard</h1>
+    <a href="{{ url_for('home') }}" class="button">New Session</a>
+
+    <div class="dashboard-container">
+      <h2>Past Sessions</h2>
+      {% if sessions %}
+      <table class="sessions-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Summary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in sessions %}
+          <tr>
+            <td>{{ session[1] }}</td>
+            <td class="summary-preview">
+              {{ session[2][:100] }}{% if session[2]|length > 100 %}...{% endif
+              %}
+            </td>
+            <td>
+              <a
+                href="{{ url_for('view_session', session_id=session[0]) }}"
+                class="button small"
+                >View</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>
+        No sessions found. Start by creating your first therapy session summary.
+      </p>
+      {% endif %}
+    </div>
+  </body>
+</html>

@@ -9,8 +9,17 @@
   </head>
   <body>
     <h1>Therapy Transcript Summarizer</h1>
+    <div class="navigation">
+      <a href="{{ url_for('dashboard') }}" class="button">View Past Sessions</a>
+    </div>
     <form action="/summarize_text" method="post">
-      <textarea name="text" rows="10" cols="50"></textarea><br />
+      <textarea
+        name="text"
+        rows="10"
+        cols="50"
+        placeholder="Enter your therapy session transcript here..."
+      ></textarea
+      ><br />
       <button type="submit">Summarize</button>
     </form>
     {% if summary %}
