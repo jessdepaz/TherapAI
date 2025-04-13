@@ -2,12 +2,25 @@ from flask import Flask, request, render_template
 from transformers import pipeline
 from collections import defaultdict
 import re
+import openai
+import os
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = Flask(__name__)
 
-# Load models
-summarizer = pipeline("summarization", model="philschmid/bart-large-cnn-samsum")
-classifier = pipeline("zero-shot-classification")
+# Load summarizer
+summarizer = pipeline(
+    "summarization",
+    model="philschmid/bart-large-cnn-samsum"
+)
+
+# Load classifier explicitly (instead of relying on default)
+classifier = pipeline(
+    "zero-shot-classification",
+    model="facebook/bart-large-mnli",  # Same default, just now explicit
+    revision="d7645e1"  # Optional: version locking for reproducibility
+)
 
 def extract_insights(text):
     # Analyze core concerns
@@ -41,6 +54,46 @@ def extract_insights(text):
 @app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
+
+@app.route("/transcribe_audio", methods=["POST"])
+def transcribe_audio():
+    audio_file = request.files.get("audio")
+
+    if not audio_file:
+        return "No audio file uploaded", 400
+
+    # Save uploaded file to a temporary path
+    filepath = "temp_audio.wav"
+    audio_file.save(filepath)
+
+    # Transcribe using OpenAI Whisper API
+    try:
+        with open(filepath, "rb") as f:
+            transcript_data = openai.Audio.transcribe("whisper-1", f)
+            transcript = transcript_data["text"]
+            os.remove(filepath)
+    except Exception as e:
+        os.remove(filepath)
+        return f"Transcription failed: {str(e)}", 500
+
+    # Reuse your summarizer and insight logic
+    summary = summarizer(
+        transcript,
+        max_length=150,
+        min_length=30,
+        do_sample=False
+    )
+    summary_text = summary[0]['summary_text']
+
+    insights = extract_insights(transcript)
+
+    return render_template(
+        "index.html",
+        summary=f"<strong>Summary of your therapy session:</strong> {summary_text}",
+        concerns=insights["concerns"],
+        breakthroughs=insights["breakthroughs"]
+    )
+
 
 @app.route("/summarize_text", methods=["POST"])
 def summarize_text():
