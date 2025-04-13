@@ -69,8 +69,12 @@ def transcribe_audio():
     # Transcribe using OpenAI Whisper API
     try:
         with open(filepath, "rb") as f:
-            transcript_data = client.audio.transcribe("whisper-1", f)
-            transcript = transcript_data.text
+            # Correct API usage for transcription
+            transcription = client.audio.transcriptions.create(
+                model="gpt-4o-transcribe",
+                file=f
+            )
+            transcript = transcription.text
             os.remove(filepath)
     except Exception as e:
         os.remove(filepath)
@@ -114,10 +118,4 @@ def summarize_text():
     return render_template(
         "index.html",
         summary=f"<strong>Summary of your therapy session:</strong> {summary_text}",
-        concerns=insights["concerns"],
-        breakthroughs=insights["breakthroughs"]
-    )
-
-if __name__ == "__main__":
-    app.run(debug=True)
-# app.py
+        concerns=insights["concern
