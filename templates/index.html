@@ -1,17 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TherapAI Summarizer</title>
+    <title>TherapAI Summarizer 🧠</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #2d3436;
+        }
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard {
+            flex: 0 0 320px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            height: fit-content;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .main-content {
+            flex: 1;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            max-width: calc(100% - 370px);
+        }
+        .insight-section {
+            margin-bottom: 30px;
+        }
+        .insight-section h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        .insight-section h3 {
+            color: #636e72;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+        margin-bottom: 12px;
+        padding: 12px 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        transition: transform 0.2s ease;
+        white-space: pre-wrap;      /* Preserves whitespace and wraps */
+        word-wrap: break-word;      /* Breaks long words */
+        overflow-wrap: break-word;  /* Ensures text wraps */
+        }
+        li:hover {
+            transform: translateY(-2px);
+        }
+        textarea {
+            width: calc(100% - 34px);
+            padding: 15px;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 200px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #74b9ff;
+        }
+        button {
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #0062cc;
+            transform: translateY(-2px);
+        }
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #0984e3;
+        }
+        .summary h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-    <h1>Therapy Transcript Summarizer</h1>
-    <form action="/summarize_text" method="post">
-        <textarea name="text" rows="10" cols="50"></textarea><br>
-        <button type="submit">Summarize</button>
-    </form>
-    {% if summary %}
-        <h2>Summary:</h2>
-        <p>{{ summary }}</p>
-    {% endif %}
+    <h1>TherapAI Assistant</h1>
+    <div class="container">
+        {% if summary %}
+        <div class="dashboard">
+            <div class="insight-section">
+                <h2>Insights Panel 💡</h2>
+                <h3>Core Concerns 🎯</h3>
+                <ul>
+                    {% for concern in concerns %}
+                    <li>{{ concern }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="insight-section">
+                <h3>Key Breakthroughs ✨</h3>
+                <ul>
+                    {% for breakthrough in breakthroughs %}
+                    <li>{{ breakthrough }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="main-content">
+            <form action="/summarize_text" method="post">
+                <textarea name="text" rows="10" placeholder="Enter your therapy session transcript here... 📝"></textarea>
+                <br>
+                <button type="submit">Analyze Session 🔍</button>
+            </form>
+            
+            {% if summary %}
+            <div class="summary">
+                <h2>Session Summary 📋</h2>
+                {{ summary|safe }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
