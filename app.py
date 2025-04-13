@@ -2,7 +2,6 @@ from flask import Flask, request, render_template
 from transformers import pipeline
 from collections import defaultdict
 import re
-import openai
 import os
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
