@@ -141,14 +141,7 @@
                 </ul>
             </div>
         </div>
-        {% endif %}
-
-        <form action="/transcribe_audio" method="POST" enctype="multipart/form-data" style="margin-top: 30px;">
-            <label for="audio"><strong>Or upload an audio file (.wav, .mp3, etc.):</strong></label><br><br>
-            <input type="file" name="audio" accept="audio/*" required>
-            <br><br>
-            <button type="submit">Transcribe & Analyze 🎤</button>
-        </form>        
+        {% endif %}   
         
         <div class="main-content">
             <form action="/summarize_text" method="post">
@@ -156,6 +149,13 @@
                 <br>
                 <button type="submit">Analyze Session 🔍</button>
             </form>
+            
+            <form action="/transcribe_audio" method="POST" enctype="multipart/form-data" style="margin-top: 30px;">
+                <label for="audio"><strong>Or upload an audio file (.wav, .mp3, etc.):</strong></label><br><br>
+                <input type="file" name="audio" accept="audio/*" required>
+                <br><br>
+                <button type="submit">Transcribe & Analyze 🎤</button>
+            </form>     
             
             {% if summary %}
             <div class="summary">

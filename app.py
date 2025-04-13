@@ -3,8 +3,9 @@ from transformers import pipeline
 from collections import defaultdict
 import re
 import os
+from openai import OpenAI
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = Flask(__name__)
 
@@ -28,14 +29,14 @@ def extract_insights(text):
         candidate_labels=["anxiety", "depression", "relationships", "work stress", "family issues", "self-esteem"],
         multi_label=True
     )
-    
+
     # Find breakthroughs using key phrases
     breakthrough_patterns = [
         r"(?i)(?:I\s+)?(?:realized|understood|discovered|learned)",
         r"(?i)now\s+I\s+(?:see|understand|know)",
         r"(?i)it\s+(?:becomes|became)\s+clear"
     ]
-    
+
     breakthroughs = []
     for pattern in breakthrough_patterns:
         matches = re.finditer(pattern, text)
@@ -44,7 +45,7 @@ def extract_insights(text):
             start = max(0, match.start() - 150)
             end = min(len(text), match.end() + 150)
             breakthroughs.append(text[start:end].strip())
-    
+
     return {
         "concerns": [label for label, score in zip(concerns["labels"], concerns["scores"]) if score > 0.3],
         "breakthroughs": breakthroughs[:3]  # Limit to top 3 breakthroughs
@@ -68,8 +69,8 @@ def transcribe_audio():
     # Transcribe using OpenAI Whisper API
     try:
         with open(filepath, "rb") as f:
-            transcript_data = openai.Audio.transcribe("whisper-1", f)
-            transcript = transcript_data["text"]
+            transcript_data = client.audio.transcribe("whisper-1", f)
+            transcript = transcript_data.text
             os.remove(filepath)
     except Exception as e:
         os.remove(filepath)
@@ -106,10 +107,10 @@ def summarize_text():
         do_sample=False
     )
     summary_text = summary[0]['summary_text']
-    
+
     # Extract insights
     insights = extract_insights(transcript)
-    
+
     return render_template(
         "index.html",
         summary=f"<strong>Summary of your therapy session:</strong> {summary_text}",
