@@ -118,4 +118,10 @@ def summarize_text():
     return render_template(
         "index.html",
         summary=f"<strong>Summary of your therapy session:</strong> {summary_text}",
-        concerns=insights["concern
+        concerns=insights["concerns"],
+        breakthroughs=insights["breakthroughs"]
+    )
+
+if __name__ == "__main__":
+    app.run(debug=True)
+# app.py
