@@ -37,14 +37,36 @@ def extract_insights(text):
         r"(?i)it\s+(?:becomes|became)\s+clear"
     ]
 
+    def find_sentence_boundaries(text, start_pos, end_pos):
+        # Find the start of the sentence
+        sentence_start = start_pos
+        while sentence_start > 0 and text[sentence_start-1] not in '.!?':
+            sentence_start -= 1
+        if sentence_start > 0:
+            sentence_start += 1  # Skip the period and space
+
+        # Find the end of the sentence
+        sentence_end = end_pos
+        while sentence_end < len(text) and text[sentence_end] not in '.!?':
+            sentence_end += 1
+        if sentence_end < len(text):
+            sentence_end += 1  # Include the period
+
+        return sentence_start, sentence_end
+
     breakthroughs = []
     for pattern in breakthrough_patterns:
         matches = re.finditer(pattern, text)
         for match in matches:
-            # Increase context window from 50 to 150 characters
-            start = max(0, match.start() - 150)
-            end = min(len(text), match.end() + 150)
-            breakthroughs.append(text[start:end].strip())
+            # Get complete sentences around the breakthrough
+            start, end = find_sentence_boundaries(
+                text,
+                max(0, match.start() - 150),
+                min(len(text), match.end() + 150)
+            )
+            breakthrough_text = text[start:end].strip()
+            if breakthrough_text and len(breakthrough_text) > 10:  # Ensure we have meaningful content
+                breakthroughs.append(breakthrough_text)
 
     return {
         "concerns": [label for label, score in zip(concerns["labels"], concerns["scores"]) if score > 0.3],
