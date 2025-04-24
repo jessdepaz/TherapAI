@@ -84,6 +84,8 @@ Open your browser and go to: [http://127.0.0.1:5000]
 
 You should now be able to upload audio or paste text for analysis.
 
+---
+
 # :open_file_folder: Project Structure
 
 ```
@@ -96,23 +98,13 @@ therapAI/
 ├── requirements.txt        # Python dependencies 
 └── README.md               # Project documentation 
 ```
+---
 
-# :closed_lock_with_key: Security Notes
+## :closed_lock_with_key: Security Notes
 Do not commit API keys — use environment variables. Never hardcode secrets in code.
 Consider using a .env file and tools like python-dotenv for local development.
 
-# :bar_chart: Example Use Case
-A user uploads a therapy session audio file.
-
-GPT-4o transcribes the session.
-
-The app summarizes the session and highlights statements like:
-
-"I realized I’ve been holding back."
-
-"It became clear what I needed to do."
-
-These insights are surfaced for therapist review or journaling.
+---
 
 ## :pushpin: Future Improvements
 :closed_lock_with_key: User authentication
@@ -125,6 +117,7 @@ These insights are surfaced for therapist review or journaling.
 
 :writing_hand: Editable transcripts before final analysis
 
+---
 
 # :busts_in_silhouette: Contributors
 Jessica De-Paz - Project Manager & Lead Developer
