@@ -1,4 +1,3 @@
-TherapAI
 TherapAI is a mental health tool that analyzes audio or text from therapy sessions to extract key insights and breakthroughs using OpenAI’s language models.
 
 Setup Instructions
@@ -53,12 +52,15 @@ Features:
 
 therapAI/
 
-
 │
 ├── app.py                # Flask app entry point
+
 ├── templates/            # HTML templates
+
 ├── static/               # CSS, JS, images
+
 ├── requirements.txt      # Python dependencies
+
 └── README.md             # This file
 
 Security Notes
