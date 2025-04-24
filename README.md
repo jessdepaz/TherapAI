@@ -5,19 +5,24 @@ Setup Instructions
 Follow the steps below to get TherapAI running locally.
 
 1. Clone the Repository
-git clone https://github.com/yourusername/therapAI.git
+
+git clone https://github.com/jessdepaz/TherapAI
+
 cd therapAI
 
 3. Create and Activate Virtual Environment
 macOS/Linux:
+
 python3 -m venv .venv
 source .venv/bin/activate
 
 Windows (CMD):
+
 python -m venv .venv
 .venv\Scripts\activate
 
 3. Install Requirements
+
 pip install -r requirements.txt
 
 5. Add Your OpenAI API Key
@@ -25,14 +30,17 @@ You will need an OpenAI API key with access to gpt-4o-transcribe. This will be p
 Set it as an environment variable:
 
 macOS/Linux:
+
 export OPENAI_API_KEY="your-api-key-here"
 
 Windows (CMD):
+
 set OPENAI_API_KEY="your-api-key-here"
 
 Note: You must run this command every time you start a new terminal session, unless you add it to your shell profile (e.g., .bashrc, .zshrc, or PowerShell profile).
 
 5. Run the Application
+
 python app.py
 
 The app will start on http://127.0.0.1:5000 and should be fully functional.
