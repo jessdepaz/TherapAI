@@ -7,10 +7,9 @@ Follow the steps below to get TherapAI running locally.
 1. Clone the Repository
 
 git clone https://github.com/jessdepaz/TherapAI
-
 cd therapAI
 
-3. Create and Activate Virtual Environment
+2. Create and Activate Virtual Environment
 macOS/Linux:
 
 python3 -m venv .venv
@@ -53,6 +52,8 @@ Features:
 📂 Project Structure
 
 therapAI/
+
+
 │
 ├── app.py                # Flask app entry point
 ├── templates/            # HTML templates
@@ -60,8 +61,7 @@ therapAI/
 ├── requirements.txt      # Python dependencies
 └── README.md             # This file
 
-🔐 Security Notes
+Security Notes
 API keys are not committed to the repository. Always use environment variables.
-
 We will not share our API key publicly.
 
