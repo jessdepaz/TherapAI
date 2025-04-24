@@ -33,6 +33,7 @@ TherapAI is a web-based mental health tool that helps therapists and clients gai
 Follow these steps to run TherapAI locally:
 
 ### 1. Clone the Repository
+
 ```
 git clone https://github.com/jessdepaz/TherapAI
 cd TherapAI
@@ -42,12 +43,14 @@ cd TherapAI
 To isolate dependencies, create and activate a virtual environment:
 
 macOS/Linux:
+
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 Windows (CMD):
+
 ```
 python -m venv .venv
 .venv\Scripts\activate
@@ -63,10 +66,13 @@ This installs Flask, Hugging Face transformers, and other necessary libraries.
 TherapAI requires an OpenAI API key to transcribe audio. Once you receive your key:
 
 macOS/Linux:
+
 ```export OPENAI_API_KEY="your-api-key-here"```
 
 Windows (CMD):
+
 ```set OPENAI_API_KEY="your-api-key-here"```
+
 💡 To avoid resetting every session, add the export/set command to your shell profile file (e.g., .bashrc, .zshrc, or PowerShell profile).
 
 ### 5. Run the Application
@@ -118,7 +124,8 @@ These insights are surfaced for therapist review or journaling.
 
 :writing_hand: Editable transcripts before final analysis
 
-:busts_in_silhouette: Contributors
+
+# :busts_in_silhouette: Contributors
 Jessica De-Paz - Project Manager & Lead Developer
  - Set up the development environment and implemented the audio-to-analysis functionality.
 
