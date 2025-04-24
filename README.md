@@ -9,7 +9,7 @@ TherapAI is a web-based mental health tool that helps therapists and clients gai
 - :studio_microphone: **Transcribe Audio**  
   Upload therapy session audio and get accurate transcripts using OpenAI’s `gpt-4o-transcribe`.
 
-- :memo::pencil: **Summarize Conversations**  
+- :pencil: **Summarize Conversations**  
   NLP summarization condenses long sessions into digestible overviews.
 
 - :bulb: **Highlight Emotional Breakthroughs**  
@@ -81,6 +81,7 @@ Once everything is set up, start the Flask app:
 ``` python app.py```
 
 Open your browser and go to: [http://127.0.0.1:5000]
+
 You should now be able to upload audio or paste text for analysis.
 
 # :open_file_folder: Project Structure
