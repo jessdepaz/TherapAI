@@ -33,7 +33,6 @@ def extract_insights(text):
         candidate_labels=["anxiety", "depression", "relationships", "work stress", "family issues", "self-esteem"],
         multi_label=True
     )
-
     # Find breakthroughs using key phrases
     breakthrough_patterns = [
         r"(?i)(?:I\s+)?(?:realized|understood|discovered|learned)",
