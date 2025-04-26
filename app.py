@@ -3,7 +3,11 @@ from transformers import pipeline
 from collections import defaultdict
 import re
 import os
+import sqlite3
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
